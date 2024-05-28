@@ -97,7 +97,7 @@ Extract the value `8162` (LeBron James points) in 2 different ways:
 ```{r}
 
 player_info[[2]][[4]]
-print(player_info$LJ$points)
+player_info$LJ$points
 ```
 
 ### Part b (3 points)
@@ -167,7 +167,16 @@ ie: 91 rounds to 90; 173 rounds to 200; 1450 rounds to 1000
 Hint: use `MARGIN = 1:2` to apply the function to each value instead of only a row/col.
 
 ```{r}
-
+round_mat <- function(x){
+  if (x >= 1000){
+    round(x, -3)
+  }else if (x >= 100){
+    round(x, -2)
+  }else{
+    round(x, -1)
+  }
+}
+apply(mat_rand, MARGIN = 1:2, round_mat)
 ```
 
 ## Question 4 (9 points)
