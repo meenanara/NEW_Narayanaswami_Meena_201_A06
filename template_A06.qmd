@@ -95,9 +95,8 @@ Extract the value `8162` (LeBron James points) in 2 different ways:
 -   using names
 
 ```{r}
-
-player_info[[2]][[4]]
-player_info$LJ$points
+player_info[[2]][[4]] # index to access the second element of player_info and the fourth element of that element
+player_info$LJ$points # access the value for LJ's points
 ```
 
 ### Part b (3 points)
@@ -107,9 +106,9 @@ Add a new named element to the end of each player's list called `height`. The he
 Print the `player_info` list to prove you were successful.
 
 ```{r}
-height <- c(78, 81, 78, 86, 85)
+height <- c(78, 81, 78, 86, 85) # create vector of heights
 for (i in 1:length(player_info)){
-  player_info[[i]]$height <- height[i]
+  player_info[[i]]$height <- height[i] # add element to each element of player_info named "height" and assign it to the corresponding player
 }
 print(player_info)
 ```
@@ -129,12 +128,12 @@ Hint: initialize an empty list
 Note: this must still run correctly even if the values were to change or if another player were added to the list or if the player order changed.
 
 ```{r}
-points_per_game <- list()
-player_names <- c()
+points_per_game <- list() # initialize empty list for player's points per game
+player_names <- c() # initialize empty vector of names
 for (i in 1:length(player_info)){
-  points_per_game <- append(points_per_game, (player_info[[i]]$points)/(player_info[[i]]$games_played))
-  player_names <- append(player_names, names(player_info[i]))
-  names(points_per_game) <- player_names
+  points_per_game <- append(points_per_game, (player_info[[i]]$points)/(player_info[[i]]$games_played)) # add the player's points/game to the list
+  player_names <- append(player_names, names(player_info[i])) # add their name to the name vector
+  names(points_per_game) <- player_names # name the list with the name vector
 }
 print(points_per_game)
 ```
@@ -146,7 +145,7 @@ Use the list created in Part c and an appropriate apply function to round each v
 Store the output as a vector and print the results.
 
 ```{r}
-rounded_vec <- sapply(points_per_game, round, 2)
+rounded_vec <- sapply(points_per_game, round, 2) # use sapply to get a vector that contains the values rounded to two decimal places
 print(rounded_vec)
 ```
 
@@ -167,13 +166,13 @@ ie: 91 rounds to 90; 173 rounds to 200; 1450 rounds to 1000
 Hint: use `MARGIN = 1:2` to apply the function to each value instead of only a row/col.
 
 ```{r}
-round_mat <- function(x){
-  if (x >= 1000){
-    round(x, -3)
-  }else if (x >= 100){
-    round(x, -2)
-  }else{
-    round(x, -1)
+round_mat <- function(x){ # create new function that takes an integer as input
+  if (x >= 1000){ # check if the function has four digits
+    round(x, -3) # if so, round to thousands
+  }else if (x >= 100){ # check if the function has three digits
+    round(x, -2) # if so, round to hundreds
+  }else{ # if it's not that, it has two digits
+    round(x, -1) # round to tens
   }
 }
 apply(mat_rand, MARGIN = 1:2, round_mat)
@@ -199,7 +198,7 @@ max_temps <- read_tsv("state_max_temps.tsv") |>
 Calculate the average temperature for each month across the whole data frame (using the data for all three states together).
 
 ```{r}
-
+apply(max_temps[3:14], 2, mean) # use apply for data frames, but only apply to columns 3 to 14, apply this to columns, use mean function
 ```
 
 ### Part b (2 points)
@@ -213,7 +212,9 @@ Create three new data frames by slicing the data by state.
 No need to print any output here.
 
 ```{r}
-
+co_temp <- max_temps[max_temps[,1]== "CO",] # use data frame max_temps but only keep the rows where the first column value is "CO"
+oh_temp <- max_temps[max_temps[,1]== "OH",] # use data frame max_temps but only keep the rows where the first column value is "OH"
+va_temp <- max_temps[max_temps[,1]== "VA",] # use data frame max_temps but only keep the rows where the first column value is "VA"
 ```
 
 ### Part c (5 points)
@@ -233,7 +234,11 @@ Example (this is NOT the answer just an example of what goes in the {}):
 Note: This code should still run successfully even if the numbers were to change.
 
 ```{r}
+annual_med_co <- apply(co_temp[3:14], 1, median)
+max_year <- ((max_temps$year[1]) + which.max(annual_med_co))
+min_year <- ((max_temps$year[1]) + which.min(annual_med_co))
 
+paste0("The maximum median annual temperature of " , max(annual_med_co) , " occurred in " , max_year , " and the minimum median annual temperature of " , min(annual_med_co) , " occurred in " , min_year , ".")
 ```
 
 ## Question 5 (5 points)
@@ -245,5 +250,4 @@ Example: The number 312 would return 6 (3 + 1 + 2)
 Run your function with 935068.
 
 ```{r}
-
 ```
