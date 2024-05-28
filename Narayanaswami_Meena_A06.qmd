@@ -250,4 +250,13 @@ Example: The number 312 would return 6 (3 + 1 + 2)
 Run your function with 935068.
 
 ```{r}
+sum_of_digits <- function(x){ # create function where the input is a number
+  if(x < 10){ # base case: function only has one digit, return just the number itself
+    return(x)
+  }else{ # recursive case
+    return((x %% 10) + sum_of_digits(x %/% 10)) # get the remainder of the number when you divide by ten, then, call the function within the function and apply it to x after removing the last digit by doing integer division by ten
+  }
+}
+
+sum_of_digits(935068)
 ```
