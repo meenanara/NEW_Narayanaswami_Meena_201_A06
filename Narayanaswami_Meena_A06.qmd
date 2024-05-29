@@ -51,7 +51,7 @@ To get full credit for this Question you must:
 ::: {.callout-tip icon="false"}
 ## Screenshot/image of RStudio
 
-![](filepath.png)
+![](images/githubss-01.png)
 :::
 
 ## Question 2 (8 points)
