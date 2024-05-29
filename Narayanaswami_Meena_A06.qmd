@@ -96,7 +96,7 @@ Extract the value `8162` (LeBron James points) in 2 different ways:
 
 ```{r}
 player_info[[2]][[4]] # index to access the second element of player_info and the fourth element of that element
-player_info$LJ$points # access the value for LJ's points
+player_info$LJ$points # access the value for LJ's points using variable names
 ```
 
 ### Part b (3 points)
@@ -130,7 +130,7 @@ Note: this must still run correctly even if the values were to change or if anot
 ```{r}
 points_per_game <- list() # initialize empty list for player's points per game
 player_names <- c() # initialize empty vector of names
-for (i in 1:length(player_info)){
+for (i in 1:length(player_info)){ # iterate through using the length of player_info 
   points_per_game <- append(points_per_game, (player_info[[i]]$points)/(player_info[[i]]$games_played)) # add the player's points/game to the list
   player_names <- append(player_names, names(player_info[i])) # add their name to the name vector
   names(points_per_game) <- player_names # name the list with the name vector
